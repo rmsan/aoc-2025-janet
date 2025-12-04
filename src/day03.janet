@@ -7,7 +7,7 @@
     (when (> byte max-val)
       (set max-val byte)
       (set max-index index))
-    (set index (+ index 1)))
+    (++ index))
   max-index)
 
 (defn pick-max-digits [bytes digit-count]
@@ -42,12 +42,3 @@
       (+ acc number))
     0
     (file/lines file)))
-
-(defn main [& args]
-  (with [file (file/open (get args 1) :r)]
-    (def r1 (part1 file))
-    (file/seek file :set 0)
-    (def r2 (part2 file))
-    (assert (or (= r1 357) (= r1 17263)) (print "Part 1 failed"))
-    (assert (or (= r2 3121910778619) (= r2 170731717900423)) (print "Part 2 failed")))
-  (os/exit 0))

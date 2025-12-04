@@ -27,11 +27,11 @@
   (let [content (file/read file :all)]
     (reduce
       (fn [acc [start end]]
-        (var sum acc)
+        (var total acc)
         (loop [number :range [start (+ end 1)]]
           (when (mirrored-half? number)
-            (set sum (+ sum number))))
-        sum)
+            (set total (+ total number))))
+        total)
       0
       (peg/match range-parser content))))
 
@@ -39,7 +39,7 @@
   (let [content (file/read file :all)]
     (reduce
       (fn [acc [start end]]
-        (var sum acc)
+        (var total acc)
         (loop [number :range [start (+ end 1)]]
           (let [digits (digit-count number)
                 half (div digits 2)]
@@ -55,17 +55,8 @@
                     (break))
                   (set position (+ position block-length)))
                 (when all-equal
-                  (set sum (+ sum number))
+                  (set total (+ total number))
                   (break))))))
-        sum)
+        total)
       0
       (peg/match range-parser content))))
-
-(defn main [& args]
-  (with [file (file/open (get args 1) :r)]
-    (def r1 (part1 file))
-    (file/seek file :set 0)
-    (def r2 (part2 file))
-    (assert (or (= r1 1227775554) (= r1 21139440284)) (print "Part 1 failed"))
-    (assert (or (= r2 4174379265) (= r2 38731915928)) (print "Part 2 failed")))
-  (os/exit 0))

@@ -5,11 +5,11 @@
 To run the test inputs:
 
 ```bash
-janet dayXX/main.janet dayXX/test.txt
+jpm -l test
 ```
 
-To run against your puzzle input, add the input to a file called `input.txt` in the correct day and use:
+To run against your puzzle input, add the input to a file called `input.txt` in the correct day (`test` folder) and use:
 
 ```bash
-janet dayXX/main.janet dayXX/input.txt
+jpm -l test
 ```
