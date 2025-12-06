@@ -1,0 +1,8 @@
+(defn main [& args]
+  (with [file (file/open (get args 1) :r)]
+    (def r1 (part1 file))
+    (file/seek file :set 0)
+    (def r2 (part2 file))
+    (assert (or (= r1 0) (= r1 0)) (print "Part 1 failed"))
+    (assert (or (= r2 0) (= r2 0)) (print "Part 2 failed")))
+  (os/exit 0))
