@@ -4,8 +4,7 @@
     (set res (bor res (blshift 1 i))))
   res)
 
-(defn- parse-indices
-  [nums]
+(defn- parse-indices [nums]
   (reduce (fn [acc n] (bor acc (blshift 1 (scan-number n)))) 0 nums))
 
 (defn- bfs-solve [start buttons]
@@ -40,8 +39,7 @@
         (array/push buttons (parse-indices button-string-range)))))
   [light buttons])
 
-(defn part1
-  [file]
+(defn part1 [file]
   (->> (file/read file :all)
        (string/split "\n")
        (map |(let [[start btns] (parse-line $)]
