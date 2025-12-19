@@ -1,6 +1,7 @@
 (defn- parse-light-string [s]
   (var res 0)
-  (loop [[i byte] :pairs s :when (= byte 35)] # 35 is '#' 
+  (def HASH 35)
+  (loop [[i byte] :pairs s :when (= byte HASH)]
     (set res (bor res (blshift 1 i))))
   res)
 

@@ -4,13 +4,14 @@
   (var beams (array/new-filled (length first-line) 0))
   (def start-pos (string/find "S" first-line))
   (put beams start-pos 1)
-  (loop [line-index :range [2 (length lines)]]
+  (def START_LINE 2)
+  (loop [line-index :range [START_LINE (length lines)]]
     (def line (get lines line-index))
+    (def CARET 94)
     (loop [index :range [0 (length line)]]
       (def char-to-check (get line index))
       (def beam-count (get beams index))
-      # 94 is ^
-      (when (and (= char-to-check 94) (> beam-count 0))
+      (when (and (= char-to-check CARET) (> beam-count 0))
         (when (= part 1)
           (++ result))
         (def left (- index 1))
@@ -19,8 +20,7 @@
         (put beams right (+ (get beams right 0) beam-count))
         (put beams index 0))))
   (when (= part 2)
-    (each beam beams
-      (set result (+ result beam))))
+    (set result (sum beams)))
   result)
 
 (defn part1 [file]

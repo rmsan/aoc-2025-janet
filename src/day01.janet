@@ -6,6 +6,7 @@
 
 (defn part1 [file]
   (let [input-lines (file/lines file)]
+    (def HUNDRED 100)
     (var current-position 50)
     (var crossing-count 0)
     (each input-line input-lines
@@ -13,19 +14,20 @@
         (set current-position (cond
                                 (= direction "L") (- current-position distance)
                                 (= direction "R") (+ current-position distance))))
-      (when (= 0 (mod current-position 100))
+      (when (= 0 (mod current-position HUNDRED))
         (++ crossing-count)))
     crossing-count))
 
 (defn part2 [file]
   (let [input-lines (file/lines file)]
+    (def HUNDRED 100)
     (var current-position 50)
     (var crossing-count 0)
     (each input-line input-lines
       (let [[direction distance] (parse-line input-line)
             new-position (if (= direction "L") (- current-position distance) (+ current-position distance))
-            position-quotient (div new-position 100)
-            position-remainder (mod new-position 100)]
+            position-quotient (div new-position HUNDRED)
+            position-remainder (mod new-position HUNDRED)]
         (set crossing-count (+ crossing-count (math/abs position-quotient)))
         (when (= direction "L")
           (when (and (= current-position 0) (> position-remainder 0))

@@ -1,6 +1,10 @@
+(def SPACE 32)
+(def DIGIT0 48)
+(def ADD 43)
+(def MULT 42)
 (defn trim-whitespaces [string-to-trim]
   (->> (string/bytes string-to-trim)
-       (filter |(not= $ 32))))
+       (filter |(not= $ SPACE))))
 
 (defn parse-input [file]
   (var numbers (array/new 4000))
@@ -30,9 +34,9 @@
       (var temp 0)
       (each line lines
         (def char (get line feed-index))
-        (when (not= char 32)
+        (when (not= char SPACE)
           (set found true)
-          (set temp (+ (* temp 10) (- char 48)))))
+          (set temp (+ (* temp 10) (- char DIGIT0)))))
       (when (not= temp 0)
         (array/push number-col temp))
       (set feed-index (inc feed-index)))
@@ -42,8 +46,8 @@
 
 (defn- apply-op [op nums]
   (case op
-    43 (sum nums)
-    42 (product nums)))
+    ADD (sum nums)
+    MULT (product nums)))
 
 (defn part1 [file]
   (var result 0)
